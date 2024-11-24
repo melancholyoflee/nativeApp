@@ -1,15 +1,20 @@
+
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { TextInput, Button, Card, Title } from 'react-native-paper';
+import { useRouter } from 'expo-router';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter(); // useRouter hook to navigate
 
   const handleLogin = () => {
     console.log('帳號:', username);
     console.log('密碼:', password);
+
     // 這裡可以加入登入邏輯
+    router.push('/main'); // 跳轉到 main 頁面
   };
 
   return (
@@ -20,23 +25,19 @@ export default function LoginScreen() {
           <TextInput
             label="帳號"
             value={username}
-            onChangeText={text => setUsername(text)}
+            onChangeText={setUsername}
             style={styles.input}
             mode="outlined"
           />
           <TextInput
             label="密碼"
             value={password}
-            onChangeText={text => setPassword(text)}
+            onChangeText={setPassword}
             secureTextEntry
             style={styles.input}
             mode="outlined"
           />
-          <Button
-            mode="contained"
-            onPress={handleLogin}
-            style={styles.button}
-          >
+          <Button mode="contained" onPress={handleLogin} style={styles.button}>
             確定
           </Button>
         </Card.Content>
